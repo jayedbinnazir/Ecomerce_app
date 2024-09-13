@@ -12,6 +12,7 @@ const initialState = {
 };
 
 function AuthLogin() {
+
   const [formData, setFormData] = useState(initialState);
   const dispatch = useDispatch();
   const { toast } = useToast();
@@ -32,6 +33,8 @@ function AuthLogin() {
       }
     });
   }
+
+
 
   return (
     <div className="mx-auto w-full max-w-md space-y-6">
