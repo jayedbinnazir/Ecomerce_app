@@ -1,0 +1,25 @@
+const {
+  PORT,
+  CLOUDE_NAME,
+  CLOUDE_API_KEY,
+  CLOUDE_API_SECRET,
+  PAY_MODE,
+  PAY_CLIENT_ID,
+  PAY_SECRET_ID,
+  MONGO_URL,
+  JWT_SECRET,
+} = process.env;
+
+const Config = {
+  PORT,
+  CLOUDE_NAME,
+  CLOUDE_API_KEY,
+  CLOUDE_API_SECRET,
+  PAY_MODE,
+  PAY_CLIENT_ID,
+  PAY_SECRET_ID,
+  MONGO_URL,
+  JWT_SECRET,
+};
+
+module.exports = Config;

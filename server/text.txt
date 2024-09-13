@@ -1,0 +1,2 @@
+mongodb+srv://jayedAdmin:thedenoreact015@cluster0.v8jfl.mongodb.net/
+mongodb+srv://jayedAdmin:<db_password>@cluster0.v8jfl.mongodb.net/
