@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const dotenv = require('dotenv')
+const dotenv = require("dotenv");
 
 dotenv.config();
 
@@ -18,24 +18,22 @@ const shopSearchRouter = require("./routes/shop/search-routes");
 const shopReviewRouter = require("./routes/shop/review-routes");
 
 const commonFeatureRouter = require("./routes/common/feature-routes");
-const Config  = require("./config");
+const Config = require("./config");
 
 //create a database connection -> u can also
 //create a separate file for this and then import/use that file here
 
 mongoose
-  .connect(
-    Config.MONGO_URL
-  )
+  .connect(Config.MONGO_URL)
   .then(() => console.log("MongoDB connected"))
   .catch((error) => console.log(error));
 
 const app = express();
-const PORT = Config.PORT  || 5000;
+const PORT = Config.PORT || 5000;
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: Config.CLIENT_URL,
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",

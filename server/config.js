@@ -8,6 +8,7 @@ const {
   PAY_SECRET_ID,
   MONGO_URL,
   JWT_SECRET,
+  CLIENT_URL,
 } = process.env;
 
 const Config = {
@@ -20,6 +21,7 @@ const Config = {
   PAY_SECRET_ID,
   MONGO_URL,
   JWT_SECRET,
+  CLIENT_URL,
 };
 
 module.exports = Config;
