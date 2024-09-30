@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "server.js",
     "dev": "SET NODE_ENV=development && nodemon server.js",
-    "production": "SET NODE_ENV=production && node server.js"
+    "production": "node server.js"
   },
   "author": "sangam mukherjee",
   "license": "ISC",
