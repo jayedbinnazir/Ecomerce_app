@@ -44,7 +44,7 @@ const loginUser = async (req, res) => {
   try {
     const checkUser = await User.findOne({ email });
     if (!checkUser) {
-      return res.json({
+      return res.status(404).json({
         success: false,
         message: "User doesn't exist! Please register first.",
       });
@@ -73,11 +73,13 @@ const loginUser = async (req, res) => {
 
     res
       .cookie("token", token, {
+        path: "/",
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // Secure only in production
-        sameSite: "Strict",
+        secure: process.env.NODE_ENV === "production" ? true : false, // Secure only in production
+        sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
         maxAge: 60 * 60 * 1000, // 1 hour
       })
+      .status(200)
       .json({
         success: true,
         message: "Logged in successfully",
@@ -103,7 +105,7 @@ const logoutUser = (req, res) => {
     .clearCookie("token", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // Secure only in production
-      sameSite: "Strict",
+      sameSite: process.env.NODE_ENV === "production" ? "Node" : "Lax",
     })
     .json({
       success: true,
@@ -114,12 +116,13 @@ const logoutUser = (req, res) => {
 // Auth Middleware
 const authMiddleware = async (req, res, next) => {
   const token = req.cookies.token;
+  console.log(token);
   if (!token)
     return res.status(401).json({
       success: false,
       message: "Unauthorized user!",
     });
-
+  console.log("token", token);
   try {
     const decoded = jwt.verify(token, Config.JWT_SECRET);
     req.user = decoded;
