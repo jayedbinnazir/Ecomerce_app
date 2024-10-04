@@ -20,21 +20,24 @@ function AuthRegister() {
 
   function onSubmit(event) {
     event.preventDefault();
-    dispatch(registerUser(formData)).then((data) => {
-      const payload = data?.payload;
-      if (payload?.success) {
+    dispatch(registerUser(formData))
+      .unwrap()
+      .then((payload) => {
+        // Registration successful
         toast({
           title: payload.message || "Registration successful",
           variant: "default",
         });
         navigate("/auth/login");
-      } else {
+      })
+      .catch((error) => {
+        // Registration failed
+        // Log the error for debugging
         toast({
-          title: payload?.error || payload?.message || "Registration failed",
+          title: error?.error || "Registration failed",
           variant: "destructive",
         });
-      }
-    });
+      });
   }
 
   console.log(formData);

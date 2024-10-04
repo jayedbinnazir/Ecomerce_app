@@ -9,17 +9,27 @@ const initialState = {
 
 export const registerUser = createAsyncThunk(
   "/auth/register",
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER}/api/auth/register`,
+        formData,
+        {
+          withCredentials: true,
+        }
+      );
 
-  async (formData) => {
-    const response = await axios.post(
-      `${import.meta.env.VITE_SERVER}/api/auth/register`,
-      formData,
-      {
-        withCredentials: true,
+      return response.data;
+    } catch (error) {
+      // Check if error response exists and has data
+      if (error.response && error.response.data) {
+        // Return the error message from the server
+        return rejectWithValue(error.response.data);
+      } else {
+        // Return a generic error message
+        return rejectWithValue({ message: "Network error" });
       }
-    );
-
-    return response.data;
+    }
   }
 );
 
@@ -99,6 +109,8 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = null;
         state.isAuthenticated = false;
+        // Optionally, you can store the error message in the state
+        state.error = action.payload?.message || action.error.message;
       })
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
