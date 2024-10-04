@@ -9,6 +9,7 @@ const {
   MONGO_URL,
   JWT_SECRET,
   CLIENT_URL,
+  VERIFY_EMAIL_API,
 } = process.env;
 
 const Config = {
@@ -22,6 +23,7 @@ const Config = {
   MONGO_URL,
   JWT_SECRET,
   CLIENT_URL,
+  VERIFY_EMAIL_API,
 };
 
 module.exports = Config;
