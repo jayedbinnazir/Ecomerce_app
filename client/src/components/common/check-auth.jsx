@@ -11,9 +11,18 @@ function CheckAuth({ isAuthenticated, user, children }) {
         return <Navigate to={"/admin/dashboard"} />;
       } else if (isAuthenticated && user?.role !== "admin ") {
         return <Navigate to={"/shop/home"} />;
+      } else if (!isAuthenticated) {
+        <Navigate to={"/shop/home"} />;
       } else {
         return <Navigate to="/shop/home" />;
       }
+    }
+  }
+
+  if (location.pathname === "/admin/dashboard") {
+    console.log("pathname is", location.pathname);
+    if (!isAuthenticated) {
+      return <Navigate to={"/shop/home"} />;
     }
   }
 
