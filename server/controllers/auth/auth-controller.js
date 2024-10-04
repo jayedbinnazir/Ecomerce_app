@@ -2,23 +2,22 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
 const Config = require("../../config");
-const { verifyEmail } = require("../../helpers/verifyEmail");
 
 // Register User
 const registerUser = async (req, res) => {
   const { userName, email, password } = req.body;
 
- 
-
   try {
+    const emailVerificationResult = await verifyEmail(email);
+    if (!emailVerificationResult) {
+      return res
+        .status(500)
+        .json({ error: "Failed to verify email. Please try again later." });
+    }
+    if (emailVerificationResult.status !== "valid") {
+      return res.status(400).json({ error: "Invalid email address" });
+    }
 
-     const emailVerificationResult = await verifyEmail(email);
-  if (!emailVerificationResult) {
-    return res.status(500).json({ error: 'Failed to verify email. Please try again later.' })
-
-    if (emailVerificationResult.status !== 'valid') {
-    return res.status(400).json({ error: 'Invalid email address' });
-  }
     const checkUser = await User.findOne({ email });
     if (checkUser)
       return res.json({
