@@ -166,7 +166,7 @@ function ShoppingHome() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {categoriesWithIcon.map((categoryItem) => (
               <Card
-              key={categoryItem.id}
+                key={categoryItem.id}
                 onClick={() =>
                   handleNavigateToListingPage(categoryItem, "category")
                 }
@@ -231,7 +231,6 @@ function ShoppingHome() {
 }
 
 export default ShoppingHome;
-
 
 // https://res.cloudinary.com/dudvxpnj0/image/upload/v1726136017/ef1r9k3h0wxb6k4prgnv.jpg
 // https://res.cloudinary.com/dudvxpnj0/image/upload/v1726136035/phputfh4swsrtsguza1r.jpg

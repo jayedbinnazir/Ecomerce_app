@@ -21,14 +21,16 @@ function AuthRegister() {
   function onSubmit(event) {
     event.preventDefault();
     dispatch(registerUser(formData)).then((data) => {
-      if (data?.payload?.success) {
+      const payload = data?.payload;
+      if (payload?.success) {
         toast({
-          title: data?.payload?.message,
+          title: payload.message || "Registration successful",
+          variant: "default",
         });
         navigate("/auth/login");
       } else {
         toast({
-          title: data?.payload?.message,
+          title: payload?.error || payload?.message || "Registration failed",
           variant: "destructive",
         });
       }
