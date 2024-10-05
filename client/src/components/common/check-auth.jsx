@@ -6,14 +6,26 @@ function CheckAuth({ isAuthenticated, user, children }) {
   console.log({ pathname: location.pathname, authenticated: isAuthenticated });
 
   if (location.pathname === "/") {
-    return <Navigate to="/shop/home" />;
+    if (!isAuthenticated) {
+      return <Navigate to="/shop/home" />;
+    } else if (isAuthenticated && user?.role === "admin") {
+      return <Navigate to={"/admin/dashboard"} />;
+    } else {
+      return <Navigate to={"/shop/home"} />;
+    }
   }
 
-  // Handle login and register routes when user is already authenticated
+  if (location.pathname.includes("admin")) {
+    if (!isAuthenticated) {
+      return <Navigate to={"/auth/login"} />;
+    }
+  }
+
   if (
-    location.pathname.includes("/auth/login") ||
-    location.pathname.includes("/auth/register")
+    location.pathname === "/auth/login" ||
+    location.pathname === "/auth/register"
   ) {
+    // Prevent loop by only redirecting away if authenticated
     if (isAuthenticated) {
       if (user?.role === "admin") {
         return <Navigate to="/admin/dashboard" />;
@@ -21,13 +33,13 @@ function CheckAuth({ isAuthenticated, user, children }) {
         return <Navigate to="/shop/home" />;
       }
     }
-  }
-
-  // Check authentication for other routes
-  if (!isAuthenticated && location.pathname.includes("/auth/login")) {
-    return <Navigate to="/auth/login" />;
-  } else if (!isAuthenticated && location.pathname.includes("/auth/register")) {
-    return <Navigate to="/auth/register" />;
+  } else {
+    // Check if user is authenticated for other routes
+    if (!isAuthenticated && location.pathname === "/auth/login") {
+      return <Navigate to="/auth/login" />;
+    } else if (!isAuthenticated && location.pathname === "/auth/register") {
+      return <Navigate to={"/auth/register"} />;
+    }
   }
 
   // Render children if authenticated and on a valid path
