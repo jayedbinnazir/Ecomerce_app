@@ -40,9 +40,12 @@ function CheckAuth({ isAuthenticated, user, children }) {
     }
   } else {
     // Check if user is authenticated for other routes
-    if (!isAuthenticated && location.pathname("/auth/login")) {
+    if (!isAuthenticated && location.pathname.includes("/auth/login")) {
       return <Navigate to="/auth/login" />;
-    } else if (!isAuthenticated && location.pathname("/auth/register")) {
+    } else if (
+      !isAuthenticated &&
+      location.pathname.includes("/auth/register")
+    ) {
       return <Navigate to={"/auth/register"} />;
     }
   }
