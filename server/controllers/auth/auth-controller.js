@@ -10,14 +10,6 @@ const registerUser = async (req, res) => {
 
   try {
     const emailVerificationResult = await verifyEmail(email);
-    if (!emailVerificationResult) {
-      return res
-        .status(500)
-        .json({ error: "Failed to verify email. Please try again later." });
-    }
-    if (emailVerificationResult.status !== "valid") {
-      return res.status(400).json({ error: "Invalid email address" });
-    }
 
     const checkUser = await User.findOne({ email });
     if (checkUser)
