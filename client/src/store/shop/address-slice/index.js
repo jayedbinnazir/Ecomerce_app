@@ -10,7 +10,7 @@ export const addNewAddress = createAsyncThunk(
   "/addresses/addNewAddress",
   async (formData) => {
     const response = await axios.post(
-      `${import.meta.env.VITE_SERVER}s/api/shop/address/add`,
+      `${import.meta.env.VITE_SERVER}/api/shop/address/add`,
       formData
     );
 
